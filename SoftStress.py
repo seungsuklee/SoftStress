@@ -505,11 +505,12 @@ def WSP(form):
 """#### Foot constraint definitions"""
 
 def FtBin(form):
+  weight = form[0][0]
   stress = form[0][1]
   feet = form[1]
   counter = 0
   for ft in feet:
-    if len(ft)<2:
+    if len(ft)<2 and weight[ft]<1:
       counter+=1
   return counter
 
