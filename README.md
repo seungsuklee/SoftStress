@@ -1,7 +1,4 @@
 # SoftStress
-# Acknowledgement
-This research and software development was supported by NSF BCS-2140826 awarded to the University of Massachusetts Amherst.
-
 For detailed explanations of the software, the assumptions, why we need it, what it can do etc., 
 please read the pdf in this repo (will be available soon). 
 
@@ -31,3 +28,5 @@ print_result_pretty('hz112', 'QI', 'Foot', OriginalTS, final_weights, learned_wh
 solutions = solve_language('hz112', 'QI', 'Foot', OriginalTS)
 print_solutions_pretty('hz112', 'QI', 'Foot', OriginalTS, Constraint_set, solutions)
 ```
+# Acknowledgement
+This research and software development was supported by NSF BCS-2140826 awarded to the University of Massachusetts Amherst.
