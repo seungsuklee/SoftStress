@@ -9,7 +9,7 @@ Grid: OriginalGordon, RevisedGordon
 
 If you want to add more constraints or want to learn a stress pattern that's not one of the 61 patterns, please let me know: seungsuklee[at]umass[dot]edu
 
-To see the patterns (winners for each UR), 
+To see the pattern (winners for each UR), 
 ```
 read_winners(filename, QI_or_QS)
 ```
