@@ -1,4 +1,7 @@
 # SoftStress
+For detailed explanations of the software, the assumptions, why we need it, what it can do etc., 
+please read the pdf in this repo. 
+
 5 constraint sets:
 Foot: OriginalTS, RevisedTS, RevisedTS_nonfinmain
 Grid: OriginalGordon, RevisedGordon
