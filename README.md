@@ -18,8 +18,10 @@ solutions = solve_language(filename, QI_or_QS, Foot_or_Grid, Constraint_set)
 print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, Constraint_set, solutions)
 ```
 # example
+```
 read_winners('hz112', 'QI')
 final_weights, learned_when = learn_language('hz112', 'QI', 'Foot', OriginalTS)
 print_result_pretty('hz112', 'QI', 'Foot', OriginalTS, final_weights, learned_when)
 solutions = solve_language('hz112', 'QI', 'Foot', OriginalTS)
 print_solutions_pretty('hz112', 'QI', 'Foot', OriginalTS, Constraint_set, solutions)
+```
