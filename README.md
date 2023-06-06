@@ -25,6 +25,15 @@ print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, Constraint_set, solutio
 ```
 # [Demo in Google Colab](https://colab.research.google.com/drive/10kKmw0Eeb4F-8F99WxRzdu31Tlcnp6ff?usp=sharing)
 ```
+# Run these lines of code to use SoftStress from a google colab notebook
+import os
+from subprocess import getoutput
+getoutput("git clone -l -s https://github.com/seungsuklee/SoftStress.git cloned-repo")
+os.chdir('cloned-repo')
+%pip install pulp
+from SoftStress import *
+```
+```
 read_winners('hz112', 'QI')
 final_weights, learned_when = learn_language('hz112', 'QI', 'Foot', OriginalTS)
 print_result_pretty('hz112', 'QI', 'Foot', OriginalTS, final_weights, learned_when)
