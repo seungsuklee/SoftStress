@@ -6,7 +6,101 @@ It can also compute the minimal set of weights that represent a stress pattern v
 You can investigate learnability/representability of any of the 61 attested stress patterns [[click to see these patterns]](https://docs.google.com/spreadsheets/d/1S6ZATuLHsgWLTHFUazIvdQwL-Gkr5H2XmsrDtYzQ8qI/edit#gid=1787957068) using five predefined constraint sets:\
 Foot: OriginalTS, RevisedTS, RevisedTS_nonfinmain\
 Grid: OriginalGordon, RevisedGordon
+For the definitions of these constraints, see the pdf manual.
+```
+OriginalTS = [
+  FtBin
+  , Parse	
+  , Iamb
+  , FootNonfin
+  # , Trochee
+  , Nonfin_ft
+  # , Nonfin_main
+  , WordFootRight
+  , WordFootLeft
+  , AllFeetRight
+  , AllFeetLeft
+  , MainRight
+  , MainLeft
+  # , MainRightSyll
+  # , MainLeftSyll
+  , WSP_ft
+]
 
+RevisedTS = [
+  FtBin
+  , Parse	
+  , Iamb
+  # , FootNonfin
+  , Trochee
+  , Nonfin_ft
+  # , Nonfin_main
+  , WordFootRight
+  , WordFootLeft
+  , AllFeetRight
+  , AllFeetLeft
+  # , MainRight
+  # , MainLeft
+  , MainRightSyll
+  , MainLeftSyll
+  , WSP_ft
+]
+
+RevisedTS_nonfinmain = [
+  FtBin
+  , Parse	
+  , Iamb
+  # , FootNonfin
+  , Trochee
+  , Nonfin_ft
+  , Nonfin_main
+  , WordFootRight
+  , WordFootLeft
+  , AllFeetRight
+  , AllFeetLeft
+  # , MainRight
+  # , MainLeft
+  , MainRightSyll
+  , MainLeftSyll
+  , WSP_ft
+]
+
+OriginalGordon = [
+  Align1LPrWd
+  , Align1RPrWd	
+  , Align1Edges
+  , Nonfin
+  , Lapse
+  , ExtendedLapse
+  , LapseRight
+  , LapseLeft
+  , ExtendedLapseRight
+  , Clash
+  , Align2LPrWd
+  , Align2RPrWd
+  # , Align2LPrWdSyll
+  # , Align2RPrWdSyll
+  , WSP
+]
+
+RevisedGordon = [
+  Align1LPrWd
+  , Align1RPrWd	
+  , Align1Edges
+  , Nonfin
+  , Lapse
+  , ExtendedLapse
+  , LapseRight
+  , LapseLeft
+  , ExtendedLapseRight
+  , Clash
+  # , Align2LPrWd
+  # , Align2RPrWd
+  , Align2LPrWdSyll
+  , Align2RPrWdSyll
+  , WSP
+]
+```
 If you want to add more constraints or want to learn a stress pattern that's not one of the 61 patterns, please let me know: seungsuklee[at]umass[dot]edu
 
 To see the pattern (winners for each UR), 
