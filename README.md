@@ -128,9 +128,12 @@ os.chdir('cloned-repo')
 from SoftStress import *
 ```
 ```
+# prints the winner SRs for this pattern
 read_winners('hz112', 'QI')
+# learns the pattern and prints the learning result
 final_weights, learned_when = learn_language('hz112', 'QI', 'Foot', OriginalTS)
 print_result_pretty('hz112', 'QI', 'Foot', OriginalTS, final_weights, learned_when)
+# solves the pattern and prints the solution(s)
 solutions = solve_language('hz112', 'QI', 'Foot', OriginalTS)
 print_solutions_pretty('hz112', 'QI', 'Foot', OriginalTS, Constraint_set, solutions)
 ```
