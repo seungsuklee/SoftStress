@@ -21,6 +21,7 @@ from re import sub, search
 from tqdm.notebook import tqdm
 from os import listdir, path, mkdir
 import pickle
+from google.colab import files
 
 """## Behind the scene
 
@@ -1227,3 +1228,162 @@ def print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, ListO
     found_winners = check_solution(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, solution)
     for winner_candidate in found_winners:
       print(winner_candidate)
+
+ def foot_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative):  
+  header = ['Input', 'Output', 'Hidden', 'Target', 'H', 'p']
+  ListOfConNames = [fn.__name__ for fn in ListOfConFns]
+  header += ListOfConNames
+  
+  winners = read_winners(filename, QI_or_QS)
+  candidates, _ = full_cands(cur_udl)
+  cur_udl = convert2brandon(cur_udl,'UR')
+  viol_mat = -1*evaluate(candidates, ListOfConFns)
+  harmonies = viol_mat.dot(weights)
+  eharmonies = np.exp(harmonies)
+  Z=sum(eharmonies)
+  probs=eharmonies/Z
+
+  TableauRows = []  
+  id = 0
+  for cand in candidates:
+    row = []
+    row.append(cur_udl) # ur
+    sr = convert2brandon(cand[0])
+    row.append(sr) # sr
+    row.append(print_foot_pretty(cand)) # hr
+    if sr in winners:
+      row.append(1) # observed
+    else:
+      row.append(0)
+    row.append(harmonies[id])
+    row.append(probs[id])
+    row.extend(viol_mat[id])
+    TableauRows.append(row)
+    id+=1
+  TableauRows.sort(key=lambda x: x[5], reverse=True) # sort by prob
+
+  TableauRows_comparative = []
+  optimal_H = TableauRows[0][4]
+  optimal_p = TableauRows[0][5]
+  id = 0
+
+  if comparative:
+    FIRST = True
+    for r in TableauRows:
+      c_row = []
+      c_row.append(r[0]) # ur
+      c_row.append(r[1]) # sr
+      c_row.append(r[2]) # hr
+      c_row.append(r[3]) # obs
+      if FIRST:
+        c_row.append(r[4])
+        c_row.append(r[5])
+      else:
+        c_row.append(r[4]-optimal_H)
+        c_row.append(r[5]-optimal_p)
+      v = viol_mat[id]*weights
+      c_row.extend(v)
+      TableauRows_comparative.append(c_row)
+      FIRST=False
+      id+=1
+    tableau = pd.DataFrame(TableauRows_comparative, columns = header)
+  else:
+    tableau = pd.DataFrame(TableauRows, columns = header)
+  tableau = tableau.round(2)
+  return tableau
+
+def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative):  
+  header = ['Input', 'Output', 'Target', 'H', 'p']
+  ListOfConNames = [fn.__name__ for fn in ListOfConFns]
+  header += ListOfConNames
+  
+  winners = read_winners(filename, QI_or_QS)
+  candidates, _ = gen_SR(cur_udl)
+  cur_udl = convert2brandon(cur_udl,'UR')
+  viol_mat = -1*evaluate(candidates, ListOfConFns)
+  harmonies = viol_mat.dot(weights)
+  eharmonies = np.exp(harmonies)
+  Z=sum(eharmonies)
+  probs=eharmonies/Z
+
+  TableauRows = []  
+  id = 0
+  for cand in candidates:
+    row = []
+    row.append(cur_udl) # ur
+    sr = convert2brandon(cand[0])
+    row.append(sr) # sr
+    if sr in winners:
+      row.append(1) # observed
+    else:
+      row.append(0)
+    row.append(harmonies[id])
+    row.append(probs[id])
+    row.extend(viol_mat[id])
+    TableauRows.append(row)
+    id+=1
+  TableauRows.sort(key=lambda x: x[4], reverse=True) # sort by prob
+
+  TableauRows_comparative = []
+  optimal_H = TableauRows[0][3]
+  optimal_p = TableauRows[0][4]
+  id = 0
+
+  if comparative:
+    FIRST = True
+    for r in TableauRows:
+      c_row = []
+      c_row.append(r[0]) # ur
+      c_row.append(r[1]) # sr
+      
+      c_row.append(r[2]) # obs
+      if FIRST:
+        c_row.append(r[3])
+        c_row.append(r[4])
+      else:
+        c_row.append(r[3]-optimal_H)
+        c_row.append(r[4]-optimal_p)
+      v = viol_mat[id]*weights
+      c_row.extend(v)
+      TableauRows_comparative.append(c_row)
+      FIRST=False
+      id+=1
+    tableau = pd.DataFrame(TableauRows_comparative, columns = header)
+  else:
+    tableau = pd.DataFrame(TableauRows, columns = header)
+  tableau = tableau.round(2)
+  return tableau
+
+def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weights, comparative):
+  header = ['Input', 'Output', 'Hidden', 'Target', 'H', 'p']
+  ListOfConNames = [fn.__name__ for fn in ListOfConFns]
+  header += ListOfConNames
+  UDLs = gen_URlist(QI_or_QS)
+  if comparative:
+    isComparative = '_comparative'
+  else:
+    isComparative = ''
+
+  
+  FIRST = True  
+  for ur in UDLs:
+    if Foot_or_Grid == 'Foot':
+      cur_tab = foot_tableau(filename, QI_or_QS, ur, ListOfConFns, weights, comparative)
+    elif Foot_or_Grid == 'Grid':
+      cur_tab = grid_tableau(filename, QI_or_QS, ur, ListOfConFns, weights, comparative)
+
+    if FIRST:
+      tab = cur_tab
+      FIRST = False
+    else:
+      tab = pd.concat([tab, cur_tab]).reset_index(drop=True)
+
+  weights = [None]*6+list(fn)
+  tab.loc[-1] =  weights
+  tab.index = tab.index + 1 
+  tab.sort_index(inplace=True)
+  tab = tab.round(2)
+  
+  output_file_name = filename + '_SoftStress_output'+isComparative+'.csv'
+  tab.to_csv(output_file_name, index=False)
+  return files.download(output_file_name)
