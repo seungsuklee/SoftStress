@@ -1298,7 +1298,7 @@ def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
   header += ListOfConNames
   
   winners = read_winners(filename, QI_or_QS)
-  candidates, _ = gen_SR(cur_udl)
+  candidates = gen_SR(cur_udl)
   cur_udl = convert2brandon(cur_udl,'UR')
   viol_mat = -1*evaluate(candidates, ListOfConFns)
   harmonies = viol_mat.dot(weights)
