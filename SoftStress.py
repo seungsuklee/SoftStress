@@ -1376,8 +1376,10 @@ def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weight
       FIRST = False
     else:
       tab = pd.concat([tab, cur_tab]).reset_index(drop=True)
-
-  weights = [None]*6+list(weights)
+  if Foot_or_grid == 'Foot':
+    weights = [None]*6+list(weights)
+  elif Foot_or_grid == 'Grid':
+    weights = [None]*5+list(weights)
   tab.loc[-1] =  weights
   tab.index = tab.index + 1 
   tab.sort_index(inplace=True)
