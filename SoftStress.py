@@ -1230,7 +1230,7 @@ def print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, ListO
       print(winner_candidate)
 
 def foot_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative):  
-  header = ['Input', 'Output', 'Hidden', 'Target', 'H', 'p']
+  header = ['Input', 'Output', 'Hidden', 'Target_p', 'H', 'p']
   ListOfConNames = [fn.__name__ for fn in ListOfConFns]
   header += ListOfConNames
   
@@ -1293,7 +1293,7 @@ def foot_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
   return tableau
 
 def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative):  
-  header = ['Input', 'Output', 'Target', 'H', 'p']
+  header = ['Input', 'Output', 'Target_p', 'H', 'p']
   ListOfConNames = [fn.__name__ for fn in ListOfConFns]
   header += ListOfConNames
   
@@ -1355,7 +1355,7 @@ def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
   return tableau
 
 def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weights, comparative):
-  header = ['Input', 'Output', 'Hidden', 'Target', 'H', 'p']
+  header = ['Input', 'Output', 'Hidden', 'Target_p', 'H', 'p']
   ListOfConNames = [fn.__name__ for fn in ListOfConFns]
   header += ListOfConNames
   UDLs = gen_URlist(QI_or_QS)
