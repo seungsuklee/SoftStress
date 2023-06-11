@@ -1260,37 +1260,38 @@ def foot_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
     row.extend(viol_mat[id])
     TableauRows.append(row)
     id+=1
-  TableauRows.sort(key=lambda x: x[5], reverse=True) # sort by prob
-
-  TableauRows_comparative = []
-  optimal_H = TableauRows[0][4]
-  optimal_p = TableauRows[0][5]
-  id = 0
-
-  if comparative:
+  tableau = pd.DataFrame(TableauRows, columns = header)
+  tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
+  tableau = tableau.round(2)
+  if not comparative:
+    return tableau
+  else:
+    TableauRows_comparative = []
+    optimal_H = tableau.iloc[0]['H']
+    optimal_p = tableau.iloc[0]['p']
+    id = 0
     FIRST = True
-    for r in TableauRows:
+    for r in range(len(tableau)):
       c_row = []
-      c_row.append(r[0]) # ur
-      c_row.append(r[1]) # sr
-      c_row.append(r[2]) # hr
-      c_row.append(r[3]) # obs
+      c_row.append(tableau.iloc[r]['Input']) # ur
+      c_row.append(tableau.iloc[r]['Output']) # sr
+      c_row.append(tableau.iloc[r]['Hidden']) # hr
+      c_row.append(tableau.iloc[r]['Target_p']) # obs
       if FIRST:
-        c_row.append(r[4])
-        c_row.append(r[5])
+        c_row.append(tableau.iloc[r]['H'])
+        c_row.append(tableau.iloc[r]['p'])
       else:
-        c_row.append(r[4]-optimal_H)
-        c_row.append(r[5]-optimal_p)
-      v = viol_mat[id]*weights
+        c_row.append(tableau.iloc[r]['H']-optimal_H)
+        c_row.append(tableau.iloc[r]['p']-optimal_p)
+      v = tableau.iloc[r][ListOfConNames]*weights
       c_row.extend(v)
       TableauRows_comparative.append(c_row)
       FIRST=False
       id+=1
-    tableau = pd.DataFrame(TableauRows_comparative, columns = header)
-  else:
-    tableau = pd.DataFrame(TableauRows, columns = header)
-  tableau = tableau.round(2)
-  return tableau
+    c_tableau = pd.DataFrame(TableauRows_comparative, columns = header)
+    c_tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
+    c_tableau = c_tableau.round(2)
+    return c_tableau
 
 def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative):  
   header = ['Input', 'Output', 'Target_p', 'H', 'p']
@@ -1313,6 +1314,7 @@ def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
     row.append(cur_udl) # ur
     sr = convert2brandon(cand)
     row.append(sr) # sr
+    # row.append(print_foot_pretty(cand)) # hr
     if sr in winners:
       row.append(1) # observed
     else:
@@ -1322,37 +1324,37 @@ def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
     row.extend(viol_mat[id])
     TableauRows.append(row)
     id+=1
-  TableauRows.sort(key=lambda x: x[4], reverse=True) # sort by prob
-
-  TableauRows_comparative = []
-  optimal_H = TableauRows[0][3]
-  optimal_p = TableauRows[0][4]
-  id = 0
-
-  if comparative:
+  tableau = pd.DataFrame(TableauRows, columns = header)
+  tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
+  tableau = tableau.round(2)
+  if not comparative:
+    return tableau
+  else:
+    TableauRows_comparative = []
+    optimal_H = tableau.iloc[0]['H']
+    optimal_p = tableau.iloc[0]['p']
+    id = 0
     FIRST = True
-    for r in TableauRows:
+    for r in range(len(tableau)):
       c_row = []
-      c_row.append(r[0]) # ur
-      c_row.append(r[1]) # sr
-      
-      c_row.append(r[2]) # obs
+      c_row.append(tableau.iloc[r]['Input']) # ur
+      c_row.append(tableau.iloc[r]['Output']) # sr
+      c_row.append(tableau.iloc[r]['Target_p']) # obs
       if FIRST:
-        c_row.append(r[3])
-        c_row.append(r[4])
+        c_row.append(tableau.iloc[r]['H'])
+        c_row.append(tableau.iloc[r]['p'])
       else:
-        c_row.append(r[3]-optimal_H)
-        c_row.append(r[4]-optimal_p)
-      v = viol_mat[id]*weights
+        c_row.append(tableau.iloc[r]['H']-optimal_H)
+        c_row.append(tableau.iloc[r]['p']-optimal_p)
+      v = tableau.iloc[r][ListOfConNames]*weights
       c_row.extend(v)
       TableauRows_comparative.append(c_row)
       FIRST=False
       id+=1
-    tableau = pd.DataFrame(TableauRows_comparative, columns = header)
-  else:
-    tableau = pd.DataFrame(TableauRows, columns = header)
-  tableau = tableau.round(2)
-  return tableau
+    c_tableau = pd.DataFrame(TableauRows_comparative, columns = header)
+    c_tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
+    c_tableau = c_tableau.round(2)
+    return c_tableau
 
 def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weights, comparative):
   header = ['Input', 'Output', 'Hidden', 'Target_p', 'H', 'p']
