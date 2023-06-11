@@ -1363,7 +1363,6 @@ def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weight
     isComparative = '_comparative'
   else:
     isComparative = ''
-
   
   FIRST = True  
   for ur in UDLs:
@@ -1378,7 +1377,7 @@ def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weight
     else:
       tab = pd.concat([tab, cur_tab]).reset_index(drop=True)
 
-  weights = [None]*6+list(fn)
+  weights = [None]*6+list(weights)
   tab.loc[-1] =  weights
   tab.index = tab.index + 1 
   tab.sort_index(inplace=True)
