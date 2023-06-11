@@ -1229,7 +1229,7 @@ def print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, ListO
     for winner_candidate in found_winners:
       print(winner_candidate)
 
- def foot_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative):  
+def foot_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative):  
   header = ['Input', 'Output', 'Hidden', 'Target', 'H', 'p']
   ListOfConNames = [fn.__name__ for fn in ListOfConFns]
   header += ListOfConNames
