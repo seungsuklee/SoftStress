@@ -1311,7 +1311,7 @@ def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
   for cand in candidates:
     row = []
     row.append(cur_udl) # ur
-    sr = convert2brandon(cand[0])
+    sr = convert2brandon(cand)
     row.append(sr) # sr
     if sr in winners:
       row.append(1) # observed
