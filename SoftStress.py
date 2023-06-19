@@ -22,6 +22,7 @@ from tqdm.notebook import tqdm
 from os import listdir, path, mkdir
 import pickle
 from google.colab import files
+import urllib.request
 
 """## Behind the scene
 
@@ -281,6 +282,14 @@ def read_input_files(filename):
   
   return surface, probs
 
+def read_input_list(langname):
+  # read from my website
+  file_path = "https://people.umass.edu/seungsuklee/files/otherLangs/" + langname + ".txt"
+  winners=[]
+  for line in urllib.request.urlopen(file_path):
+    winners.append(line.decode('utf-8').strip())
+  return winners
+  
 def filter_list(l, ids):
   return [f for i, f in enumerate(l) if i in ids]
 
@@ -297,8 +306,11 @@ def get_winners(surface, probs):
   return winner_sr
 
 def read_winners(filename, QI_or_QS):
-  long_surface, long_probs = read_input_files(filename)
-  winners = get_winners(long_surface, long_probs)
+  if filename in qi_fsa or filename in qs_fsa:
+    long_surface, long_probs = read_input_files(filename)
+    winners = get_winners(long_surface, long_probs)
+  else:
+    winners = read_input_list(filename)
 
   if QI_or_QS=='QS':
     return winners 
