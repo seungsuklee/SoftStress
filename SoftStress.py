@@ -507,6 +507,26 @@ def ExtendedLapseRight(form):
   else:
     return 0
 
+def AlignL1Left(form):
+  weight = np.array(form[0])
+  stress = np.array(form[1])
+  # checking if there's L1
+  main_id = np.where(stress==2)
+  if weight[main_id]==0:
+    return main_id[0][0]
+  else:
+    return 0
+
+def AlignL1Right(form):
+  weight = np.array(form[0])
+  stress = np.array(form[1])
+  # checking if there's L1
+  main_id = np.where(stress==2)
+  if weight[main_id]==0:
+    return len(stress)-1-main_id[0][0]
+  else:
+    return 0
+
 # WSP
 def WSP(form):
   # count the stressless heavy
@@ -690,6 +710,26 @@ def MainLeftSyll(form):
   
   # count the intervening syllables
   return len(s)
+  
+def AlignL1Left_ft(form):
+  stress = form[0][1]
+  weight = form[0][0]
+  # checking if there's L1
+  main_id = np.where(stress==2)
+  if weight[main_id]==0:
+    return main_id[0][0]
+  else:
+    return 0
+
+def AlignL1Right_ft(form):
+  stress = form[0][1]
+  weight = form[0][0]
+  # checking if there's L1
+  main_id = np.where(stress==2)
+  if weight[main_id]==0:
+    return len(stress)-1-main_id[0][0]
+  else:
+    return 0
 
 def WSP_ft(form):
   ww = form[0][0]
