@@ -36,7 +36,9 @@ def convert2brandon(representation, mode= 'SR'):
     if digit == 0:
       return 'L'
     elif digit == 1:
-      return 'H' 
+      return 'H'
+    elif digit == 2:
+      return 'S'
 
   def stress2brandon(digit):
     if digit == 0:
@@ -74,6 +76,8 @@ def getURfromSR(sfc):
       weight.append(0)
     elif w == 'H':
       weight.append(1)
+    elif w == 'S':
+      weight.append(2)
   return convert2brandon(np.array(weight), 'UR')
 
 def brandon2st2(SR):
@@ -96,6 +100,8 @@ def brandon2st2(SR):
       weight.append(0)
     elif w == 'H':
       weight.append(1)
+    elif w == 'S':
+      weight.append(2)
     
   weight = tuple(weight)
   stress = tuple(stress)
@@ -513,6 +519,17 @@ def WSP(form):
       violations +=1
   return violations
 
+def WSP_superheavy(form):
+  # count the stressless superheavy
+  ww = form[0]
+  ss = form[1]
+  superheavys = np.where(ww>1)[0]
+  violations = 0
+  for i in superheavys:
+    if ss[i]==0:
+      violations +=1
+  return violations
+
 """#### Foot constraint definitions"""
 
 def FtBin(form):
@@ -683,6 +700,17 @@ def WSP_ft(form):
     if ss[i]==0:
       violations +=1
   return violations
+
+def WSP_superheavy_ft(form):
+  ww = form[0][0]
+  ss = form[0][1]
+  superheavys = np.where(ww>1)[0]
+  violations = 0
+  for i in superheavys:
+    if ss[i]==0:
+      violations +=1
+  return violations
+
 
 """#### Evaluate SRs"""
 
