@@ -1238,14 +1238,14 @@ def print_result_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, w_vec, l
         print(f"observerd form {tab[1]}",': %.2f'%tab[2])
         print("for this SR...")
         print(f"Best HR {print_foot_pretty(tab[3][0])}",': %.2f'%tab[4][0])
-        print(f"Second best HR {print_foot_pretty(tab[3][1])}",': %.2f'%tab[4][1])
+        # print(f"Second best HR {print_foot_pretty(tab[3][1])}",': %.2f'%tab[4][1])
     else:
       print(f"learning was not successful :(")
       for tab in RES:
         print('------------------------------------------')
         print(f"observerd form {tab[1]}",': %.2f'%tab[2])
         print(f"Best candidate {print_foot_pretty(tab[3][0])}",': %.2f'%tab[4][0])
-        print(f"Second best candidate {print_foot_pretty(tab[3][1])}",': %.2f'%tab[4][1])
+        # print(f"Second best candidate {print_foot_pretty(tab[3][1])}",': %.2f'%tab[4][1])
   elif Foot_or_Grid=='Grid':
     if success>0:
       print(f"learning was successful!")
