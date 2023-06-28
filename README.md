@@ -41,7 +41,7 @@ final_weights, learned_when = learn_language('hz112', 'QI', 'Foot', OriginalTS)
 print_result_pretty('hz112', 'QI', 'Foot', OriginalTS, final_weights, learned_when)
 # solves the pattern and prints the solution(s)
 solutions = solve_language('hz112', 'QI', 'Foot', OriginalTS)
-print_solutions_pretty('hz112', 'QI', 'Foot', OriginalTS, Constraint_set, solutions)
+print_solutions_pretty('hz112', 'QI', 'Foot', OriginalTS, solutions)
 ```
 
 # Constraint sets
