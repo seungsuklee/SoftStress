@@ -1566,6 +1566,8 @@ def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weight
     isSorted = '_sorted'
   else:
     isSorted = ''
+  if comparative and sorted==False:
+    return "please set 'sorted' to be True, if you want a comparative tableau"
 
   FIRST = True
   for ur in UDLs:
