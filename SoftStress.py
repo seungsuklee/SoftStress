@@ -1283,11 +1283,6 @@ def check_learned_weights(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, w_vec,
 # Printing fns
 ####################################################
 
-def print_weights_pretty(CON_names, w_vec):
-  w_vec_sorted, CON_names_sorted = (list(t) for t in zip(*sorted(zip(w_vec, CON_names), reverse=True)))
-  for i in range(len(CON_names_sorted)):
-    print(f'{CON_names_sorted[i]}:','%.3f'%w_vec_sorted[i])
-
 def print_foot_pretty(representation):
   sfc, ft=representation
   sfc = convert2brandon(sfc)
@@ -1319,9 +1314,9 @@ def print_foot_pretty(representation):
       right_placed.append(syll)
   return " ".join(right_placed)
 
-def print_result_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, w_vec, learned_when):
+def print_result_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, w_vec, learned_when, con_suffix):
   RES = check_learned_weights(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, w_vec, learned_when)
-  con_suffix = '_'+get_name_of_ListOfConFns(ListOfConFns)
+  con_suffix = '_'+con_suffix
   ListOfConNames = [fn.__name__ for fn in ListOfConFns]
 
   output_file_name = filename +con_suffix+"_BriefOutput.txt"
@@ -1400,10 +1395,10 @@ def print_result_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, w_vec, l
   files.download(output_file_name)
   output_file.close()
 
-def print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, ListOfSolutions):
+def print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, ListOfSolutions, con_suffix):
   ListOfConNames = [fn.__name__ for fn in ListOfConFns]
   UDLs = gen_URlist(QI_or_QS)
-  con_suffix = '_'+get_name_of_ListOfConFns(ListOfConFns)
+  con_suffix = '_'+con_suffix
   output_file_name = filename +con_suffix+"_all_solutions.txt"
   output_file = open(path.join("./", output_file_name), "w")
   output_file.write(f'There are {len(ListOfSolutions)} solution(s) found for {filename}')
@@ -1553,10 +1548,10 @@ def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
     c_tableau = c_tableau.round(2)
     return c_tableau
 
-def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weights, comparative):
+def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weights, comparative, con_suffix):
   header = ['Input', 'Output', 'Hidden', 'Target_p', 'H', 'p']
   ListOfConNames = [fn.__name__ for fn in ListOfConFns]
-  con_suffix = '_'+get_name_of_ListOfConFns(ListOfConFns)
+  con_suffix = '_'+con_suffix
   header += ListOfConNames
   UDLs = gen_URlist(QI_or_QS)
   if comparative:
