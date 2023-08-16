@@ -1421,7 +1421,7 @@ def print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, ListO
   files.download(output_file_name)
   output_file.close()
 
-def foot_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative):
+def foot_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative, sorted):
   header = ['Input', 'Output', 'Hidden', 'Target_p', 'H', 'p']
   ListOfConNames = [fn.__name__ for fn in ListOfConFns]
   header += ListOfConNames
@@ -1453,7 +1453,8 @@ def foot_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
     TableauRows.append(row)
     id+=1
   tableau = pd.DataFrame(TableauRows, columns = header)
-  tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
+  if sorted:
+    tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
   tableau = tableau.round(2)
   if not comparative:
     return tableau
@@ -1481,11 +1482,12 @@ def foot_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
       FIRST=False
       id+=1
     c_tableau = pd.DataFrame(TableauRows_comparative, columns = header)
-    c_tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
+    if sorted:
+      c_tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
     c_tableau = c_tableau.round(2)
     return c_tableau
 
-def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative):
+def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative, sorted):
   header = ['Input', 'Output', 'Target_p', 'H', 'p']
   ListOfConNames = [fn.__name__ for fn in ListOfConFns]
   header += ListOfConNames
@@ -1517,7 +1519,8 @@ def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
     TableauRows.append(row)
     id+=1
   tableau = pd.DataFrame(TableauRows, columns = header)
-  tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
+  if sorted:
+    tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
   tableau = tableau.round(2)
   if not comparative:
     return tableau
@@ -1544,11 +1547,12 @@ def grid_tableau(filename, QI_or_QS, cur_udl, ListOfConFns, weights, comparative
       FIRST=False
       id+=1
     c_tableau = pd.DataFrame(TableauRows_comparative, columns = header)
-    c_tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
+    if sorted:
+      c_tableau.sort_values(by="p", ascending=False, inplace=True, ignore_index=True)
     c_tableau = c_tableau.round(2)
     return c_tableau
 
-def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weights, comparative, con_suffix):
+def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weights, comparative, sorted, con_suffix):
   header = ['Input', 'Output', 'Hidden', 'Target_p', 'H', 'p']
   ListOfConNames = [fn.__name__ for fn in ListOfConFns]
   con_suffix = '_'+con_suffix
@@ -1558,13 +1562,17 @@ def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weight
     isComparative = '_comparative'
   else:
     isComparative = ''
+  if sorted:
+    isSorted = '_sorted'
+  else:
+    isSorted = ''
 
   FIRST = True
   for ur in UDLs:
     if Foot_or_Grid == 'Foot':
-      cur_tab = foot_tableau(filename, QI_or_QS, ur, ListOfConFns, weights, comparative)
+      cur_tab = foot_tableau(filename, QI_or_QS, ur, ListOfConFns, weights, comparative, sorted)
     elif Foot_or_Grid == 'Grid':
-      cur_tab = grid_tableau(filename, QI_or_QS, ur, ListOfConFns, weights, comparative)
+      cur_tab = grid_tableau(filename, QI_or_QS, ur, ListOfConFns, weights, comparative, sorted)
 
     if FIRST:
       tab = cur_tab
@@ -1580,6 +1588,6 @@ def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weight
   tab.sort_index(inplace=True)
   tab = tab.round(2)
 
-  output_file_name = filename +con_suffix+isComparative+'.csv'
+  output_file_name = filename +con_suffix+isComparative+isSorted+'.csv'
   tab.to_csv(output_file_name, index=False)
   return files.download(output_file_name)
