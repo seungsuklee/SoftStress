@@ -1159,7 +1159,6 @@ def solve_language(filename, QI_or_QS, Foot_or_Grid, ListOfConFns):
       solutions.append(w_vec)
     else:
       print("no solution :(")
-    print(f"{filename}: number of solutions: {len(Combo)}")
     return solutions
 
 # add solver to check one specific parsing
