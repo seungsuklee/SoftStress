@@ -1284,8 +1284,8 @@ def check_learned_weights(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, w_vec,
 ####################################################
 
 def get_name_of_ListOfConFns(variable):
-  for name in globals():
-    if id(globals()[name]) == id(variable):
+  for name in locals():
+    if id(locals()[name]) == id(variable):
       return name
 
 def print_weights_pretty(CON_names, w_vec):
