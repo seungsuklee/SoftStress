@@ -21,7 +21,7 @@ import mpmath
 from itertools import product, combinations_with_replacement
 from more_itertools import partitions
 from collections import defaultdict, Counter
-from re import sub, search
+from re import sub, search, findall
 from tqdm.notebook import tqdm
 from os import listdir, path, mkdir
 import pickle
@@ -1592,3 +1592,27 @@ def print_tableaux_pretty(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, weight
   output_file_name = filename +con_suffix+isComparative+isSorted+'.csv'
   tab.to_csv(output_file_name, index=False)
   return files.download(output_file_name)
+
+####################################################
+# UI
+####################################################
+def search_within_st2(langname):
+  fsa_langs = pd.read_csv("https://people.umass.edu/seungsuklee/files/SoftStress/all_fsa.csv")
+  found = fsa_langs.loc[fsa_langs['Languages'].str.contains(langname)]
+  if len(found)>0:
+    print(f"{len(found)} language(s) found in the database with the name '{langname}'")
+    print(f"Language(s) found: ")
+  else:
+    print(f"'{langname}' is not listed in the database!")
+
+  for i in range(len(found)):
+    langs = found.iloc[i]['Languages']
+    langs = sub('\"','\'',langs)
+    print(i+1, 'FSA code:',"'hz"+found.iloc[i]['FSA_num'][:3]+"'")
+    langs = langs.split('\'')
+    for l in langs:
+      if findall(langname,l):
+        print('\tLanguage name: '+l)
+        print('\tST2 Label: '+l)
+        print('\t'+'It is a '+"'"+found.iloc[i]['isQ']+"'"+' pattern')
+        print('\t'+found.iloc[i]['Prose'])
