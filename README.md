@@ -5,7 +5,7 @@ SoftStress can learn a stress pattern with a Maximum Entropy learner (Goldwater 
 
 It can also compute the minimal set of weights that represent a stress pattern via Linear Programming, introduced in Potts et al 2010 and implemented in OT-Help. The current software can handle larger and more complicated problems. 
 
-You can investigate learnability/representability of any of the 61 attested stress patterns [[click to see these patterns]](https://docs.google.com/spreadsheets/d/1S6ZATuLHsgWLTHFUazIvdQwL-Gkr5H2XmsrDtYzQ8qI/edit#gid=594535280) using five predefined constraint sets:
+You can investigate learnability/representability of any of the 61 attested stress patterns [[click to see these patterns]](https://docs.google.com/spreadsheets/d/1S6ZATuLHsgWLTHFUazIvdQwL-Gkr5H2XmsrDtYzQ8qI/edit#gid=594535280), without any input files, using five predefined constraint sets:
 
 Foot: OriginalTS, RevisedTS, RevisedTS_nonfinmain
 Grid: OriginalGordon, RevisedGordon
