@@ -1613,6 +1613,7 @@ def search_within_st2(langname):
     for l in langs:
       if findall(langname,l):
         print('\tLanguage name: '+l)
-        print('\tST2 Label: '+l)
-        print('\t'+'It is a '+"'"+found.iloc[i]['isQ']+"'"+' pattern')
+        print('\tST2 Label: '+found.iloc[i]['Label'])
+        print('\t'+'It is a '+"'"+found.iloc[i]['isQ'].upper()+"'"+' pattern')
+        
         print('\t'+found.iloc[i]['Prose'])
