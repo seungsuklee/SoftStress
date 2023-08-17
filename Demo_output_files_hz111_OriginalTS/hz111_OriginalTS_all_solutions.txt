@@ -1,0 +1,21 @@
+There are 1 solution(s) found for hz111
+------------------------------------------
+Iamb: 1.000
+FtBin: 1.000
+AllFeetRight: 1.000
+WordFootRight: 0.000
+WordFootLeft: 0.000
+WSP_ft: 0.000
+Parse: 0.000
+Nonfin_ft: 0.000
+MainRight: 0.000
+MainLeft: 0.000
+FootNonfin: 0.000
+AllFeetLeft: 0.000
+
+[(L L1)]
+[L (L L1)]
+[L L (L L1)]
+[L L L (L L1)]
+[L L L L (L L1)]
+[L L L L L (L L1)]

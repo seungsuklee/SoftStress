@@ -1,0 +1,39 @@
+AllFeetRight: 8.679
+MainRight: 7.164
+Iamb: 3.386
+WordFootRight: 3.257
+FtBin: 1.092
+WSP_ft: 1.000
+WordFootLeft: 0.000
+Parse: 0.000
+Nonfin_ft: 0.000
+MainLeft: 0.000
+FootNonfin: 0.000
+AllFeetLeft: 0.000
+
+------------------------------------------
+learning was successful! language hz111 learned in 1 epoch(s)
+------------------------------------------
+observerd form [L L1]: 0.98
+for this SR...
+Best HR [(L L1)]: 0.73
+------------------------------------------
+observerd form [L L L1]: 0.98
+for this SR...
+Best HR [L (L L1)]: 0.73
+------------------------------------------
+observerd form [L L L L1]: 0.98
+for this SR...
+Best HR [L L (L L1)]: 0.73
+------------------------------------------
+observerd form [L L L L L1]: 0.98
+for this SR...
+Best HR [L L L (L L1)]: 0.73
+------------------------------------------
+observerd form [L L L L L L1]: 0.98
+for this SR...
+Best HR [L L L L (L L1)]: 0.73
+------------------------------------------
+observerd form [L L L L L L L1]: 0.98
+for this SR...
+Best HR [L L L L L (L L1)]: 0.73
