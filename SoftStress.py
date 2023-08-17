@@ -1617,3 +1617,4 @@ def search_within_st2(langname):
         print('\t'+'It is a '+"'"+found.iloc[i]['isQ'].upper()+"'"+' pattern')
         
         print('\t'+found.iloc[i]['Prose'])
+  return fsa_langs
