@@ -33,6 +33,6 @@ print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, Constraint_set, solutio
 
 # [Try the demo in Google Colab](https://colab.research.google.com/drive/10kKmw0Eeb4F-8F99WxRzdu31Tlcnp6ff?usp=sharing)
 
-If you want to add more constraints or want to learn a stress pattern that's not one of the 61 patterns, please let me know: seungsuklee[at]umass[dot]edu
+If you want to contribute to the database/program by adding more constraints or adding a stress pattern that's not one of the 61 patterns, please let me know: seungsuklee[at]umass[dot]edu
 # Acknowledgement
 This research and software development was supported by NSF BCS-2140826 awarded to the University of Massachusetts Amherst.
