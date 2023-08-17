@@ -27,7 +27,7 @@ solutions = solve_language(filename, QI_or_QS, Foot_or_Grid, Constraint_set)
 print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, Constraint_set, solutions, con_suffix = myConstraintsName)
 ```
 
-# [Demo in Google Colab](https://colab.research.google.com/drive/10kKmw0Eeb4F-8F99WxRzdu31Tlcnp6ff?usp=sharing)
+# [Try the demo in Google Colab](https://colab.research.google.com/drive/10kKmw0Eeb4F-8F99WxRzdu31Tlcnp6ff?usp=sharing)
 
 If you want to add more constraints or want to learn a stress pattern that's not one of the 61 patterns, please let me know: seungsuklee[at]umass[dot]edu
 # Acknowledgement
