@@ -12,6 +12,10 @@ Grid: OriginalGordon, RevisedGordon
 
 For the definitions of these constraints, see the pdf manual.
 
+If the stress pattern you want to investigate is not in the list of 61 patterns, you can also upload your own input file (see the Example input file format)
+
+Some code snippets... click on the link to the google colab demo, to try them yourself
+
 To see the pattern (winners for each UR), 
 ```
 read_winners(filename, QI_or_QS)
