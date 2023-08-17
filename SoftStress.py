@@ -320,19 +320,25 @@ def read_input_files(filename):
 
   return surface, probs
 
-def read_input_list(langname):
+def upload_input_list(langname):
   '''
   given a language name, return the winner SRs
   Palestinian_Arabic, Najrani_Arabic, Moroccan_Arabic, Jordanian_Arabic,
   Iraqi_Arabic, Classical_Arabic_McCarthy, Classical_Arabic_Abdo, Algerian_Arabic
   '''
-  file_path = "https://people.umass.edu/seungsuklee/files/otherLangs/" + langname + ".txt"
-  winners=[]
-  for line in urllib.request.urlopen(file_path):
-    winners.append(line.decode('utf-8').strip())
-  return winners
+  # file_path = "https://people.umass.edu/seungsuklee/files/otherLangs/" + langname + ".txt"
+  uploaded = files.upload()
+  inputfilename = langname + ".txt"
+  inputfile = open(path.join("./", inputfilename), "r")
 
-read_input_list('Moroccan_Arabic')
+  winners=[]
+  for line in inputfile:
+    winners.append(line.strip())
+  if len(winners)!= 6:
+    if len(winners)!=62:
+      print(f'The number of UR in the uploaded input file is {len(winners)}')
+      return "However, the number of UR must be either 6 (QI) or 62 (QS, TS-style)"
+  return winners
 
 def filter_list(l, ids):
   '''
@@ -367,7 +373,7 @@ def read_winners(filename, QI_or_QS):
     long_surface, long_probs = read_input_files(filename)
     winners = get_winners(long_surface, long_probs)
   else:
-    winners = read_input_list(filename)
+    winners = upload_input_list(filename)
 
   if QI_or_QS=='QS':
     return winners
