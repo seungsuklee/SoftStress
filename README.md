@@ -7,7 +7,7 @@ It can also compute the minimal set of weights that represent a stress pattern v
 
 You can investigate learnability/representability of any of the 61 attested stress patterns [[click to see these patterns]](https://docs.google.com/spreadsheets/d/1S6ZATuLHsgWLTHFUazIvdQwL-Gkr5H2XmsrDtYzQ8qI/edit#gid=594535280), without any input files, using five predefined constraint sets:
 
-Foot: OriginalTS, RevisedTS, RevisedTS_nonfinmain
+Foot: OriginalTS, RevisedTS, RevisedTS_nonfinmain\
 Grid: OriginalGordon, RevisedGordon
 
 For the definitions of these constraints, see the pdf manual.
