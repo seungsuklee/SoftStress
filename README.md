@@ -16,127 +16,16 @@ read_winners(filename, QI_or_QS)
 To learn a pattern
 ```
 final_weights, learned_when = learn_language(filename, QI_or_QS, Foot_or_Grid, Constraint_set)
-print_result_pretty(filename, QI_or_QS, Foot_or_Grid, Constraint_set, final_weights, learned_when)
+print_result_pretty(filename, QI_or_QS, Foot_or_Grid, Constraint_set, final_weights, learned_when, con_suffix = myConstraintsName)
 ```
 To solve a pattern (to see if a pattern is representable with the constraint set)
 ```
 solutions = solve_language(filename, QI_or_QS, Foot_or_Grid, Constraint_set)
-print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, Constraint_set, solutions)
+print_solutions_pretty(filename, QI_or_QS, Foot_or_Grid, Constraint_set, solutions, con_suffix = myConstraintsName)
 ```
 # [Demo in Google Colab](https://colab.research.google.com/drive/10kKmw0Eeb4F-8F99WxRzdu31Tlcnp6ff?usp=sharing)
 ```
-# Run these lines of code to use SoftStress from a google colab notebook
-import os
-from subprocess import getoutput
-getoutput("git clone -l -s https://github.com/seungsuklee/SoftStress.git cloned-repo")
-os.chdir('cloned-repo')
-%pip install pulp
-from SoftStress import *
-```
-```
-# prints the winner SRs for this pattern
-read_winners('hz112', 'QI')
-# learns the pattern and prints the learning result
-final_weights, learned_when = learn_language('hz112', 'QI', 'Foot', OriginalTS)
-print_result_pretty('hz112', 'QI', 'Foot', OriginalTS, final_weights, learned_when)
-# solves the pattern and prints the solution(s)
-solutions = solve_language('hz112', 'QI', 'Foot', OriginalTS)
-print_solutions_pretty('hz112', 'QI', 'Foot', OriginalTS, solutions)
-```
 
-# Constraint sets
-```
-OriginalTS = [
-  FtBin
-  , Parse	
-  , Iamb
-  , FootNonfin
-  # , Trochee
-  , Nonfin_ft
-  # , Nonfin_main
-  , WordFootRight
-  , WordFootLeft
-  , AllFeetRight
-  , AllFeetLeft
-  , MainRight
-  , MainLeft
-  # , MainRightSyll
-  # , MainLeftSyll
-  , WSP_ft
-]
-
-RevisedTS = [
-  FtBin
-  , Parse	
-  , Iamb
-  # , FootNonfin
-  , Trochee
-  , Nonfin_ft
-  # , Nonfin_main
-  , WordFootRight
-  , WordFootLeft
-  , AllFeetRight
-  , AllFeetLeft
-  # , MainRight
-  # , MainLeft
-  , MainRightSyll
-  , MainLeftSyll
-  , WSP_ft
-]
-
-RevisedTS_nonfinmain = [
-  FtBin
-  , Parse	
-  , Iamb
-  # , FootNonfin
-  , Trochee
-  , Nonfin_ft
-  , Nonfin_main
-  , WordFootRight
-  , WordFootLeft
-  , AllFeetRight
-  , AllFeetLeft
-  # , MainRight
-  # , MainLeft
-  , MainRightSyll
-  , MainLeftSyll
-  , WSP_ft
-]
-
-OriginalGordon = [
-  Align1LPrWd
-  , Align1RPrWd	
-  , Align1Edges
-  , Nonfin
-  , Lapse
-  , ExtendedLapse
-  , LapseRight
-  , LapseLeft
-  , ExtendedLapseRight
-  , Clash
-  , Align2LPrWd
-  , Align2RPrWd
-  # , Align2LPrWdSyll
-  # , Align2RPrWdSyll
-  , WSP
-]
-
-RevisedGordon = [
-  Align1LPrWd
-  , Align1RPrWd	
-  , Align1Edges
-  , Nonfin
-  , Lapse
-  , ExtendedLapse
-  , LapseRight
-  , LapseLeft
-  , ExtendedLapseRight
-  , Clash
-  # , Align2LPrWd
-  # , Align2RPrWd
-  , Align2LPrWdSyll
-  , Align2RPrWdSyll
-  , WSP
 ]
 ```
 If you want to add more constraints or want to learn a stress pattern that's not one of the 61 patterns, please let me know: seungsuklee[at]umass[dot]edu
