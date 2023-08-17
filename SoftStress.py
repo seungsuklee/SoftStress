@@ -320,14 +320,13 @@ def read_input_files(filename):
 
   return surface, probs
 
-def upload_input_list(langname):
+def read_input_list(langname):
   '''
   given a language name, return the winner SRs
   Palestinian_Arabic, Najrani_Arabic, Moroccan_Arabic, Jordanian_Arabic,
   Iraqi_Arabic, Classical_Arabic_McCarthy, Classical_Arabic_Abdo, Algerian_Arabic
   '''
   # file_path = "https://people.umass.edu/seungsuklee/files/otherLangs/" + langname + ".txt"
-  uploaded = files.upload()
   inputfilename = langname + ".txt"
   inputfile = open(path.join("./", inputfilename), "r")
 
@@ -373,7 +372,7 @@ def read_winners(filename, QI_or_QS):
     long_surface, long_probs = read_input_files(filename)
     winners = get_winners(long_surface, long_probs)
   else:
-    winners = upload_input_list(filename)
+    winners = read_input_list(filename)
 
   if QI_or_QS=='QS':
     return winners
