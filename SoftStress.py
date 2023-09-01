@@ -1283,6 +1283,72 @@ def check_learned_weights(filename, QI_or_QS, Foot_or_Grid, ListOfConFns, w_vec,
       )
   return result
 
+def read_brief_output_file():
+  '''
+  asks the user to upload a brief output file
+  either in Brandon's format or in my format
+  and returns the BestHR forms in Brandonian style
+  '''
+  uploaded = files.upload()
+  filename = [x for x in enumerate(uploaded)][0][1]
+  if filename[-1]=='v': # Brandon's format
+    return pd.read_csv(filename)['UR'].tolist()[1:]
+  elif filename[-1]=='t': # my format
+    with open(filename, 'r') as f:
+      lines = f.readlines()
+      BestHRs = []
+      for l in lines:
+        if l[:4]=='Best':
+          BestHRs.append(l[8:])
+    BestHR_forms = []
+    for hr in BestHRs:
+      form = findall('\[.+\]', hr)
+      BestHR_forms.append(form[0])
+    return BestHR_forms
+
+def solve_for_single_parsing(QI_or_QS, ListOfConFns):
+  '''
+  uses the above read_brief_output_file() function
+  and then solves the minimal weights required to make those HR candidates win in their respective tableau
+  assumes that the candidates are foot-candidates
+  returns a weight vector, which can be used in print_solutions_pretty()
+  '''
+  winners_learned_brandon = read_brief_output_file()
+  UDLs = gen_URlist(QI_or_QS) 
+  winners_SRs_st2 = [np.array(brandon2st2(s)) for s in winners_learned_brandon] # converts Brandonian to ST2
+  winners_st2 = []
+  for i in range(len(winners_SRs_st2)): 
+    # to have a winner HR candidates in ST2 format, 
+    # no specific function to convert foot rep to st2
+    # (only the opposite exists (print_foot_pretty()))
+    HRs = gen_HR(winners_SRs_st2[i])
+    for hr in HRs:
+      if print_foot_pretty(hr) == winners_learned_brandon[i]:
+        winners_st2.append(hr)
+
+  # the rest is the same as grid solver
+  ListOfConNames = [fn.__name__ for fn in ListOfConFns]
+  DictOfCons = LpVariable.dicts("con", ListOfConNames, lowBound=0 # no neg weights
+                            # , cat='Continuous' # float weights
+                            , cat='Integer' # only integer weights allowed
+                            )
+  
+  solutions= []
+  prob = LpProblem('', LpMinimize)
+
+  for tab in range(len(UDLs)):
+    prob = add_tableau('Foot', prob, UDLs[tab], winners_st2[tab], ListOfConFns, DictOfCons, alpha=1)
+  prob += lpSum(DictOfCons)
+
+  if prob.solve() == 1:
+    w_vec = []
+    for var in DictOfCons.values():
+      w_vec.append(var.value())
+    solutions.append(w_vec)
+  else:
+    print("no solution :(")
+  return solutions
+
 ####################################################
 # Printing fns
 ####################################################
