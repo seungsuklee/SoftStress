@@ -313,7 +313,7 @@ def read_input_files(filename):
   probs = []
 
   # read from my website
-  file_path = "https://people.umass.edu/seungsuklee/files/FSA/" + filename + ".csv"
+  file_path = "http://people.umass.edu/seungsuklee/files/FSA/" + filename + ".csv"
   inputfile = pd.read_csv(file_path)
   surface = inputfile.loc[inputfile['SR']==inputfile['SR']]['SR'].tolist()
   probs = inputfile.loc[inputfile['p']==inputfile['p']]['p'].tolist()
