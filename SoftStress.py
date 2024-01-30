@@ -368,7 +368,7 @@ def read_winners(filename, QI_or_QS):
   given a filename and QI/QS,
   return a list of winners (either for 6 urs or 62 urs)
   '''
-  if filename in qi_fsa or filename in qs_fsa:
+  if filename[0:2]=='ts' or filename[0:2]=='hz':
     long_surface, long_probs = read_input_files(filename)
     winners = get_winners(long_surface, long_probs)
   else:
