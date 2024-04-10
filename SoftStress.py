@@ -326,7 +326,7 @@ def read_input_list(langname):
   Palestinian_Arabic, Najrani_Arabic, Moroccan_Arabic, Jordanian_Arabic,
   Iraqi_Arabic, Classical_Arabic_McCarthy, Classical_Arabic_Abdo, Algerian_Arabic
   '''
-  file_path = "http://people.umass.edu/seungsuklee/files/otherLangs/" + langname + ".txt"
+  # file_path = "http://people.umass.edu/seungsuklee/files/otherLangs/" + langname + ".txt"
   inputfilename = langname + ".txt"
   inputfile = open(path.join("./", inputfilename), "r")
 
