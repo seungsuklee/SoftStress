@@ -25,8 +25,8 @@ from re import sub, search, findall
 from tqdm.notebook import tqdm
 from os import listdir, path, mkdir
 import pickle
-from google.colab import files
-import urllib.request
+# from google.colab import files
+# import urllib.request
 
 ####################################################
 # representation fns
